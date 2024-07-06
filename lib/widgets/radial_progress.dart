@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
@@ -85,10 +86,19 @@ class _MiRadialProgress extends CustomPainter {
   });
   @override
   void paint(Canvas canvas, Size size) {
+final Rect rect = Rect.fromCircle(center: const Offset(0,0), radius: 180);
+
+    const Gradient gradiente = LinearGradient(colors: [
+
+      Color(0xffC012FF),
+      Color(0xff6D0568),
+      Colors.red
+    ]);
     //Circulo completado
     final paint = Paint()
       ..strokeWidth = grosorSecundario
       ..color = colorSecundario
+     
       ..style = PaintingStyle.stroke;
 
     final center = Offset(size.width * 0.5, size.height * 0.5);
@@ -98,7 +108,9 @@ class _MiRadialProgress extends CustomPainter {
     //arco
     final paintArco = Paint()
       ..strokeWidth = grosorPrimario
-      ..color = colorPrimario
+      //..color = colorPrimario
+      ..shader = gradiente.createShader(rect)
+       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;
     //parte que se debera ir llenando
 
